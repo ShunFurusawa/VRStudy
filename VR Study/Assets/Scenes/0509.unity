@@ -20499,15 +20499,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 334.3829
+      value: 373.11237
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 195.03438
+      value: 239.1324
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000020196
+      value: 0.00003277
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20515,7 +20515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.18129
+      value: 0.18288
       objectReference: {fileID: 0}
     - target: {fileID: 2653181533822351498, guid: 0359ed46faed84f4ab2e4be3e7bc88c5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32243,7 +32243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 887751164787949738, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.277
+      value: 1.328
       objectReference: {fileID: 0}
     - target: {fileID: 887751164787949738, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32278,6 +32278,10 @@ PrefabInstance:
       value: Cannon
       objectReference: {fileID: 0}
     - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
+      propertyPath: moveSpeed
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
       propertyPath: SpawnPoint
       value: 
       objectReference: {fileID: 932230421}
@@ -32286,12 +32290,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7359796710938933319, guid: d347d812f621467478bb37a364265b34, type: 3}
     - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 932230421}
+    - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 581368899}
+    - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
       propertyPath: powerDirection.y
-      value: 0.02
+      value: 0.021
       objectReference: {fileID: 0}
     - target: {fileID: 8877135584024893368, guid: 08aaad717015bd84fa9e16594f331ead, type: 3}
       propertyPath: powerDirection.z
-      value: -0.02
+      value: -0.022
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -47,7 +47,7 @@ public class Racket : MonoBehaviour
             }
         }
         
-        Debug.Log(tracked);
+       // Debug.Log(tracked);
         
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
