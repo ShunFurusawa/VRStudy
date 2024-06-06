@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private bool isballDeleted = false;
     private float randNextGenerateTime;
     private float elapsedTime;
+    public int remainingAmmo = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,6 @@ public class GameManager : MonoBehaviour
     public void RandomGenerateTiming()
     {
         isballDeleted = true;
-        randNextGenerateTime = Random.Range(2.0f, 5.0f);
+        randNextGenerateTime = Random.Range(5.0f, 10.0f);
     }
 }
