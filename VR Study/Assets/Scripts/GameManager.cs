@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
+    
     [SerializeField] private Cannon _canon;
     private bool isballDeleted = false;
     private float randNextGenerateTime;
@@ -11,12 +14,29 @@ public class GameManager : MonoBehaviour
     public int remainingAmmo = 10;
     private const int BOARD_SIZE = 3;
     public bool[,] mass;
+    
+    [Header("SE用audiosource")][SerializeField] public AudioSource SE_AudioSource = null;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        Time.timeScale = 0f;
+    }
+
     void Start()
     {
         RandomGenerateTiming();
         isballDeleted = true;
         remainingAmmo--;
-        
+        restartButton.SetActive(false);
+        endButton.SetActive(false);
         //ボード初期化
         mass = new bool[BOARD_SIZE, BOARD_SIZE];
        for(int row = 0; row < BOARD_SIZE; row++)
@@ -45,6 +65,18 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    public void PlaySE(AudioClip clip)
+    {
+        if (SE_AudioSource != null && clip != null)
+        {
+            SE_AudioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.Log("オーディオソースが設定されていません");
+        }
+    }
+
 
     public void RandomGenerateTiming()
     {
@@ -57,14 +89,41 @@ public class GameManager : MonoBehaviour
         randNextGenerateTime = Random.Range(3.0f, 7.0f);
     }
 
+   
+    [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject endButton;
+    public void StartButton()
+    {
+        Time.timeScale = 1f;
+        startButton.SetActive(false);
+    }
+
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void EndButton()
+    {
+    #if UNITY_EDITOR
+         UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+    #else
+       Application.Quit();//ゲームプレイ終了
+    #endif
+    }
     private void Fail()
     {
+        restartButton.SetActive(true);
+        endButton.SetActive(true);
         Debug.Log("Fail");
         Time.timeScale = 0;
     }
 
     private void Clear()
     {
+        restartButton.SetActive(true);
+        endButton.SetActive(true);
         Debug.Log("Clear");
         Time.timeScale = 0;
     }

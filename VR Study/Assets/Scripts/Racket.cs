@@ -18,6 +18,7 @@ public class Racket : MonoBehaviour
     [SerializeField] private float power = 0.01f;
 
     [SerializeField] private float controlPower = 0.05f;
+    [SerializeField] AudioClip RacketHitS = default!;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +71,8 @@ public class Racket : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ball"))
         {
+            GameManager.instance.PlaySE(RacketHitS);
+
             //velocityがそのままだと強すぎるのでcontrolPowerを掛けて制限する
             velocity = Vector3.Scale(velocity, new Vector3(controlPower, controlPower, controlPower));
             other.rigidbody.velocity = velocity;
