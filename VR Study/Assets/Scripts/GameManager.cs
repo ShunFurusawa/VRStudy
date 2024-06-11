@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private float randNextGenerateTime;
     private float elapsedTime;
     public int remainingAmmo = 10;
-    private const int BOARD_SIZE = 3;
+    private const int BOARD_SIZE = 5;
     public bool[,] mass;
     
     [Header("SE用audiosource")][SerializeField] public AudioSource SE_AudioSource = null;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        Time.timeScale = 0f;
+       // Time.timeScale = 0f;
     }
 
     void Start()

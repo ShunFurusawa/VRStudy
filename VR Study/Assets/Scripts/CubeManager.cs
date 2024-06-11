@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeChangeColor : MonoBehaviour
+public class CubeManager : MonoBehaviour
 {
     [SerializeField] private Material hitMaterial = default!;
     [SerializeField] int row = default!;
@@ -18,14 +18,21 @@ public class CubeChangeColor : MonoBehaviour
     {
         
     }
-
+    [SerializeField] private AudioClip HitS = default!;
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ball"))
         {
+            GameManager.instance.PlaySE(HitS);
+            
+          　 //色替えと盤面チェック
             GetComponent<Renderer>().material = hitMaterial;
             _gameManager.mass[row, col] = true;
             _gameManager.CheckBoard();
+            
+            //弾を消すのと次の発射準備
+            Destroy(other.gameObject);
+            _gameManager.RandomGenerateTiming();
         }
     }
 }

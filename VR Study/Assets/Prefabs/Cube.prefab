@@ -119,3 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitMaterial: {fileID: 2100000, guid: 7f7f1dfffdb62a94ca3d492296560f82, type: 2}
+  row: 0
+  col: 0
+  _gameManager: {fileID: 9178638254170289773, guid: ba1098451171a664b8c3ae47ea542c5b, type: 3}
+  HitS: {fileID: 8300000, guid: 7af1793f3424f684390e3c16e1a2e1d7, type: 3}
