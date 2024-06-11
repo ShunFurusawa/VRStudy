@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void Clear()
+    public void Clear()
     {
         restartButton.SetActive(true);
         endButton.SetActive(true);

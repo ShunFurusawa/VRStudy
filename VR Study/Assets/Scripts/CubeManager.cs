@@ -19,11 +19,18 @@ public class CubeManager : MonoBehaviour
         
     }
     [SerializeField] private AudioClip HitS = default!;
+    [SerializeField] private Enemy _enemy = default!;
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ball"))
         {
             GameManager.instance.PlaySE(HitS);
+
+            if (_enemy.CheckSand() == true)
+            {
+                //クリア   
+                _gameManager.Clear();
+            }
             
           　 //色替えと盤面チェック
             GetComponent<Renderer>().material = hitMaterial;

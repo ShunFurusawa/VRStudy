@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
     }
 
      [SerializeField] private float xValue = default!;
-     [FormerlySerializedAs("zValue")] [SerializeField] private float yValue = default!;
+     [SerializeField] private float yValue = default!;
     private void SetPos()
     {
         Debug.Log("row = " + row);
@@ -120,4 +120,21 @@ public class Enemy : MonoBehaviour
 
         myTransform.position = pos;
     }
+
+   public bool CheckSand()
+    {
+       
+        //敵の位置から四方向CanMoveCheck()を実行してすべてfalseが帰ってくる＝挟まれている
+        if (CanMoveCheck(row--, col) == true) //上
+            return false;
+        if (CanMoveCheck(row++, col) == true) //下
+            return false;
+        if (CanMoveCheck(row, col--) == true) //左
+            return false;
+        if (CanMoveCheck(row, col++) == true) //右
+            return false;
+
+        return true;
+    }
+
 }
