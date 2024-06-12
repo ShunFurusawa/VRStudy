@@ -27,11 +27,11 @@ public class CubeManager : MonoBehaviour
         {
             GameManager.instance.PlaySE(HitS);
 
-            if (_enemy.CheckSand() == true)
-            {
-                //クリア   
-                GameManager.instance.Clear();
-            }
+            // if (_enemy.CheckSand() == true)
+            // {
+            //     //クリア   
+            //     GameManager.instance.Clear();
+            // }
             
           　 //色替えと盤面チェック
             if (GameManager.instance.mass[row, col] == false)
