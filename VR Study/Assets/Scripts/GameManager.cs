@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         {
             Fail();
         }
-        randNextGenerateTime = Random.Range(3.0f, 7.0f);
+        randNextGenerateTime = Random.Range(2.0f, 4.0f);
     }
 
    
@@ -114,16 +114,16 @@ public class GameManager : MonoBehaviour
     }
     private void Fail()
     {
-        restartButton.SetActive(true);
-        endButton.SetActive(true);
+      //  restartButton.SetActive(true);
+      //  endButton.SetActive(true);
         Debug.Log("Fail");
         Time.timeScale = 0;
     }
 
     public void Clear()
     {
-        restartButton.SetActive(true);
-        endButton.SetActive(true);
+       // restartButton.SetActive(true);
+        //endButton.SetActive(true);
         Debug.Log("Clear");
         Time.timeScale = 0;
     }
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
             
             //breakされてなければ一列光ってるからクリア
             if (col == BOARD_SIZE)
-                Clear();
+                remainingAmmo += 15;
         }
         
         //縦
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
             }
            
             if (row == BOARD_SIZE)
-                Clear();
+                remainingAmmo += 15;
         }
 
         //斜め
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (idx == BOARD_SIZE)
-                    Clear();
+                    remainingAmmo += 15;
             }
         }
         {
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (idx == BOARD_SIZE)
-                    Clear();
+                    remainingAmmo += 15;
             }
         }
     

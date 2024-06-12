@@ -14,8 +14,15 @@ public class Enemy : MonoBehaviour
         Up,
         Down,
     };
+   
     void Start()
     {
+        if (GameManager.instance == null)
+        {
+            Debug.LogError("GameManager not found!");
+            return;
+        }
+        
         row = defaultPos[0];
         col = defaultPos[1];
     }
@@ -24,6 +31,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float referenceValue = default;
     void Update()
     {
+        if (GameManager.instance == null)
+        {
+            Debug.LogError("GameManager not found!");
+            return;
+        }
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= referenceValue)
         {
@@ -32,53 +44,76 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    [SerializeField] private GameManager _GM;
     private int direction;
     [Header("0:row 1:col")]
     [SerializeField] private int[] defaultPos;
     private int row;
     private int col;
+  
     private void MoveEnemy()
     {
         do
         {
             //盤面の更新
-            _GM = _GM.GetComponent<GameManager>();
-
+            // obj = GameObject.Find("GameManager");
+            // _GM = obj.GetComponent<GameManager>();
+            // _GM = _GM.GetComponent<GameManager>();
+            int newRow = row;
+            int newCol = col;
             direction = Random.Range(0, 4);
 
             if (direction == (int)MoveDirection.Left)
             {
-                col--;
+                newCol--;
             }
             else if (direction == (int)MoveDirection.Right)
             {
-                col++;
+                newCol++;
             }
             else if (direction == (int)MoveDirection.Up)
             {
-                row--;
+                newRow--;
             }
             else if (direction == (int)MoveDirection.Down)
             {
-                row++;
+                newRow++;
             }
             else
             {
                 Debug.Log("Error");
             }
-
-            if (CanMoveCheck(row, col) == true)
+            
+            if (CanMoveCheck(newRow, newCol))
             {
+                row = newRow;
+                col = newCol;
                 SetPos();
                 break;
             }
             
-        } while (true);
+
+            // if (CheckSand() == true)
+            // {
+            //     _GM.Clear();
+            //     break;
+            // }
+            //     
+        
+        } while (CheckSand() == false);
+        
+        if (CheckSand() == true)
+            GameManager.instance.Clear();
     }
 
     private bool CanMoveCheck(int row, int col)
     {
+        //盤面の更新
+        /*obj = GameObject.Find("GameManager");
+        _GM = obj.GetComponent<GameManager>(); */
+        if (GameManager.instance == null)
+        {
+            return false;
+        }
         
         if (row < 0 || 4 < row)
             return false;
@@ -86,7 +121,7 @@ public class Enemy : MonoBehaviour
         if (col < 0 || 4 < col)
             return false;
         
-        if (_GM.mass[row, col] == true)
+        if (GameManager.instance.mass[row, col] == true) // 色を変えた的の条件を確認
             return false;
 
         return true;
@@ -97,10 +132,11 @@ public class Enemy : MonoBehaviour
      [SerializeField] private float yValue = default!;
     private void SetPos()
     {
-        Debug.Log("row = " + row);
-        Debug.Log("col = " + col);
+        
         Transform myTransform = this.transform;
         Vector3 pos = myTransform.position;
+        
+        //盤面の座標とunity上の座標は符号逆
         if (direction == (int) MoveDirection.Left)
         {
             pos.x -= xValue;
@@ -111,27 +147,31 @@ public class Enemy : MonoBehaviour
         }
         else if (direction == (int) MoveDirection.Up)
         {
-            pos.y -= yValue;
+            pos.y += yValue;
         }
         else if (direction == (int) MoveDirection.Down)
         {
-            pos.y += yValue;
+            pos.y -= yValue;
         }
 
         myTransform.position = pos;
+        Debug.Log("row = " + row);
+        Debug.Log("col = " + col);
     }
 
    public bool CheckSand()
     {
-       
+        /*obj = GameObject.Find("GameManager");
+        _GM = obj.GetComponent<GameManager>();*/
+        
         //敵の位置から四方向CanMoveCheck()を実行してすべてfalseが帰ってくる＝挟まれている
-        if (CanMoveCheck(row--, col) == true) //上
+        if (CanMoveCheck(row - 1, col) == true) //上
             return false;
-        if (CanMoveCheck(row++, col) == true) //下
+        if (CanMoveCheck(row + 1, col) == true) //下
             return false;
-        if (CanMoveCheck(row, col--) == true) //左
+        if (CanMoveCheck(row, col - 1) == true) //左
             return false;
-        if (CanMoveCheck(row, col++) == true) //右
+        if (CanMoveCheck(row, col + 1) == true) //右
             return false;
 
         return true;

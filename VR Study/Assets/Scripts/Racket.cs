@@ -56,13 +56,12 @@ public class Racket : MonoBehaviour
             Rigidbody ballRigidbody;
             
             //Aボタンが押されたときの処理
-            Debug.Log("A");
 
             ball = Instantiate(ballPrefab, SpawnPoint.position, Quaternion.identity);
 
             ballRigidbody = ball.GetComponent<Rigidbody>();
             
-            ballRigidbody.AddForce(new Vector3(0f, power, 0f), ForceMode.Impulse);
+            ballRigidbody.AddForce(new Vector3(0f, 0f, power), ForceMode.Impulse);
 
         }
     }

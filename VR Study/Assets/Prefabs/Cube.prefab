@@ -123,3 +123,4 @@ MonoBehaviour:
   col: 0
   _gameManager: {fileID: 9178638254170289773, guid: ba1098451171a664b8c3ae47ea542c5b, type: 3}
   HitS: {fileID: 8300000, guid: 7af1793f3424f684390e3c16e1a2e1d7, type: 3}
+  _enemy: {fileID: 1122681210976761042, guid: 55dc1538ef3ef8e498e0b7ad5514aad8, type: 3}

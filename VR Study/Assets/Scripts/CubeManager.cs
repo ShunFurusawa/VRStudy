@@ -9,9 +9,10 @@ public class CubeManager : MonoBehaviour
     [SerializeField] int row = default!;
     [SerializeField] int col = default!;
     [SerializeField] private GameManager _gameManager;
+    private Material defaultMaterial;
     void Start()
     {
-        
+        defaultMaterial = GetComponent<Renderer>().material;
     }
 
     void Update()
@@ -29,17 +30,25 @@ public class CubeManager : MonoBehaviour
             if (_enemy.CheckSand() == true)
             {
                 //クリア   
-                _gameManager.Clear();
+                GameManager.instance.Clear();
             }
             
           　 //色替えと盤面チェック
-            GetComponent<Renderer>().material = hitMaterial;
-            _gameManager.mass[row, col] = true;
-            _gameManager.CheckBoard();
-            
+            if (GameManager.instance.mass[row, col] == false)
+            {
+                GetComponent<Renderer>().material = hitMaterial;
+                GameManager.instance.mass[row, col] = true;
+                GameManager.instance.CheckBoard();
+            }
+            else
+            {
+                GetComponent<Renderer>().material = defaultMaterial;
+                GameManager.instance.mass[row, col] = false;
+            }
+        
             //弾を消すのと次の発射準備
             Destroy(other.gameObject);
-            _gameManager.RandomGenerateTiming();
+            GameManager.instance.RandomGenerateTiming();
         }
     }
 }
