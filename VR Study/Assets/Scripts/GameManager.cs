@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI clearText;
+    [SerializeField] private TextMeshProUGUI startText;
+    [SerializeField] private TextMeshProUGUI failText;
+    [SerializeField] private TextMeshProUGUI restartText;
+    [SerializeField] private TextMeshProUGUI endText;
     [SerializeField] private Cannon _canon;
     private bool isballDeleted = false;
     private float randNextGenerateTime;
@@ -14,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int remainingAmmo = 10;
     private const int BOARD_SIZE = 5;
     public bool[,] mass;
+    [SerializeField] private AudioClip clearS = default!;
     
     [Header("SE用audiosource")][SerializeField] public AudioSource SE_AudioSource = null;
     private void Awake()
@@ -34,9 +44,7 @@ public class GameManager : MonoBehaviour
     {
         RandomGenerateTiming();
         isballDeleted = true;
-        remainingAmmo--;
-        restartButton.SetActive(false);
-        endButton.SetActive(false);
+        //remainingAmmo--;
         //ボード初期化
         mass = new bool[BOARD_SIZE, BOARD_SIZE];
        for(int row = 0; row < BOARD_SIZE; row++)
@@ -62,6 +70,7 @@ public class GameManager : MonoBehaviour
             isballDeleted = false;
             remainingAmmo--;
             elapsedTime = 0;
+            TextUpdate();
         }
         
     }
@@ -90,13 +99,13 @@ public class GameManager : MonoBehaviour
     }
 
    
-    [SerializeField] private GameObject startButton;
-    [SerializeField] private GameObject restartButton;
-    [SerializeField] private GameObject endButton;
+   
+    // [SerializeField] private GameObject restartButton;
+    // [SerializeField] private GameObject endButton;
     public void StartButton()
     {
         Time.timeScale = 1f;
-        startButton.SetActive(false);
+        Destroy(startText);
     }
 
     public void RestartButton()
@@ -112,10 +121,16 @@ public class GameManager : MonoBehaviour
        Application.Quit();//ゲームプレイ終了
     #endif
     }
+
+    public void TextUpdate()
+    {
+        ammoText.text = Convert.ToString(remainingAmmo);
+    }
     private void Fail()
     {
       //  restartButton.SetActive(true);
       //  endButton.SetActive(true);
+        failText.gameObject.SetActive(true);
         Debug.Log("Fail");
         Time.timeScale = 0;
     }
@@ -124,9 +139,12 @@ public class GameManager : MonoBehaviour
     {
        // restartButton.SetActive(true);
         //endButton.SetActive(true);
+        PlaySE(clearS);
+        clearText.gameObject.SetActive(true);
         Debug.Log("Clear");
         Time.timeScale = 0;
     }
+    
     public void CheckBoard()
     {
         //横
@@ -146,7 +164,7 @@ public class GameManager : MonoBehaviour
             
             //breakされてなければ一列光ってるからクリア
             if (col == BOARD_SIZE)
-                remainingAmmo += 15;
+                Bonus();
         }
         
         //縦
@@ -163,7 +181,7 @@ public class GameManager : MonoBehaviour
             }
            
             if (row == BOARD_SIZE)
-                remainingAmmo += 15;
+                Bonus();
         }
 
         //斜め
@@ -179,7 +197,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (idx == BOARD_SIZE)
-                    remainingAmmo += 15;
+                    Bonus();
             }
         }
         {
@@ -194,10 +212,17 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (idx == BOARD_SIZE)
-                    remainingAmmo += 15;
+                    Bonus();
             }
         }
     
     }
 
+    [SerializeField] private AudioClip bonusS = default!;
+    private void Bonus()
+    {
+        PlaySE(bonusS);
+        remainingAmmo += 15;
+        TextUpdate();
+    }
 }

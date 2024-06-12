@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 public class Enemy : MonoBehaviour
 {
 
+    [SerializeField] private AudioClip moveS = default!;
    enum MoveDirection
     {
         Left,
@@ -155,6 +156,7 @@ public class Enemy : MonoBehaviour
         }
 
         myTransform.position = pos;
+        GameManager.instance.PlaySE(moveS);
         Debug.Log("row = " + row);
         Debug.Log("col = " + col);
     }

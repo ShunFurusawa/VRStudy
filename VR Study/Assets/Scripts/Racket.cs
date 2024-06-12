@@ -52,6 +52,8 @@ public class Racket : MonoBehaviour
         
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
+            GameManager.instance.StartButton();
+            
             GameObject ball;
             Rigidbody ballRigidbody;
             
