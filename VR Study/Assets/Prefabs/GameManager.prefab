@@ -44,4 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da9c514e6fb2904fa48da4f1138dcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoText: {fileID: 0}
+  clearText: {fileID: 0}
+  startText: {fileID: 0}
+  failText: {fileID: 0}
+  restartText: {fileID: 0}
+  endText: {fileID: 0}
   _canon: {fileID: 0}
+  remainingAmmo: 20
+  clearS: {fileID: 8300000, guid: ac5b1e261d8121f438b589c26d68dfe8, type: 3}
+  SE_AudioSource: {fileID: 0}
+  bonusS: {fileID: 8300000, guid: a9012de3a4be9754f83ad48cd8727bcd, type: 3}

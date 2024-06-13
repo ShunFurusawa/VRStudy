@@ -54,7 +54,7 @@ public class Racket : MonoBehaviour
         {
             GameManager.instance.StartButton();
             
-            GameObject ball;
+            /*GameObject ball;
             Rigidbody ballRigidbody;
             
             //Aボタンが押されたときの処理
@@ -63,8 +63,19 @@ public class Racket : MonoBehaviour
 
             ballRigidbody = ball.GetComponent<Rigidbody>();
             
-            ballRigidbody.AddForce(new Vector3(0f, 0f, power), ForceMode.Impulse);
+            ballRigidbody.AddForce(new Vector3(0f, 0f, power), ForceMode.Impulse);*/
 
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            //B
+            GameManager.instance.RestartButton();
+        }
+        if (OVRInput.GetDown(OVRInput.Button.Four))
+        {
+            //Y
+            GameManager.instance.EndButton();
         }
     }
 

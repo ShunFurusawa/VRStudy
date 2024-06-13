@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+          //  DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
-       // Time.timeScale = 0f;
+        Time.timeScale = 0f;
     }
 
     void Start()
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
     public void StartButton()
     {
         Time.timeScale = 1f;
-        Destroy(startText);
+        startText.gameObject.SetActive(false);
     }
 
     public void RestartButton()
@@ -131,6 +131,8 @@ public class GameManager : MonoBehaviour
       //  restartButton.SetActive(true);
       //  endButton.SetActive(true);
         failText.gameObject.SetActive(true);
+        restartText.gameObject.SetActive(true);
+        endText.gameObject.SetActive(true);
         Debug.Log("Fail");
         Time.timeScale = 0;
     }
@@ -139,17 +141,25 @@ public class GameManager : MonoBehaviour
     {
        // restartButton.SetActive(true);
         //endButton.SetActive(true);
+        restartText.gameObject.SetActive(true);
+        endText.gameObject.SetActive(true);
         PlaySE(clearS);
         clearText.gameObject.SetActive(true);
         Debug.Log("Clear");
         Time.timeScale = 0;
     }
-    
+
+    private bool upDownF = false;
+    private bool leftRightF = false;
+    private bool rightDigDownF = false;
+    private bool rightDigUpF = false;
     public void CheckBoard()
     {
         //横
         for(int row = 0; row < BOARD_SIZE; row++)
         {
+            if (leftRightF == true)
+                break;
             //最初がfalseだったら次の行へ
             if (mass[row, 0] == false)
                 continue;
@@ -164,12 +174,20 @@ public class GameManager : MonoBehaviour
             
             //breakされてなければ一列光ってるからクリア
             if (col == BOARD_SIZE)
+            {
                 Bonus();
+                leftRightF = true;
+            }
+               
         }
         
         //縦
         for(int col = 0; col < BOARD_SIZE; col++)
         {
+            
+            if (upDownF == true)
+                break;
+            
             if (mass[0, col] == false) 
                 continue;
             
@@ -179,15 +197,20 @@ public class GameManager : MonoBehaviour
                 if (mass[row, col] == false) 
                     break;
             }
-           
+
             if (row == BOARD_SIZE)
+            {
                 Bonus();
+                upDownF = true;
+            }
+               
         }
 
         //斜め
         {
             //左上から調べる
-            if (mass[0, 0] == true)
+            
+            if (mass[0, 0] == true && rightDigDownF == false)
             {
                 int idx = 1;
                 for (; idx < BOARD_SIZE; idx++)
@@ -197,22 +220,29 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (idx == BOARD_SIZE)
+                {
                     Bonus();
+                    rightDigDownF = true;
+                }
+                  
             }
         }
         {
             //左下から調べる
-            if (mass[BOARD_SIZE - 1, 0] == true)
+            if (mass[BOARD_SIZE - 1, 0] == true && rightDigUpF == false)
             {
                 int idx = 1;
                 for (; idx < BOARD_SIZE; idx++)
                 {
-                    if (mass[idx - 1 - idx, idx] == false)
+                    if (mass[BOARD_SIZE - 1 - idx, idx] == false)
                         break;
                 }
 
                 if (idx == BOARD_SIZE)
+                {
                     Bonus();
+                    rightDigUpF = true;
+                }
             }
         }
     
